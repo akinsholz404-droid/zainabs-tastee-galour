@@ -185,7 +185,74 @@
   .toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:10px;font-weight:700;opacity:0;transition:.2s;z-index:60;pointer-events:none}
   .toast.on{opacity:1;transform:translateX(-50%)}
 
+  /* Admin */
+  body.in-admin{overflow:hidden}
+  #adminApp{position:fixed;inset:0;z-index:80;background:var(--bg);overflow:auto}
+  .a-login{min-height:100%;display:grid;place-items:center;padding:24px;background:linear-gradient(160deg,#135685 0%,#0B2C47 55%,var(--bg) 100%)}
+  .a-card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:28px;width:min(420px,100%);box-shadow:var(--shadow)}
+  .a-card h2{font-size:30px}
+  .a-err{display:none;color:#F28B82;font-size:14px;font-weight:600;margin:0 0 12px}
+  .a-top{position:sticky;top:0;z-index:5;background:rgba(11,22,34,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .a-top>.wrap:first-child{display:flex;justify-content:space-between;align-items:center;height:64px}
+  .a-actions{display:flex;gap:8px}
+  .a-sm{padding:8px 14px;font-size:14px}
+  .a-tabs{display:flex;gap:4px}
+  .a-tabs button{background:none;border:0;color:var(--muted);font-weight:600;padding:10px 14px;border-bottom:2px solid transparent}
+  .a-tabs button.on{color:var(--ink);border-bottom-color:var(--sky)}
+  .a-dot{background:var(--gold);color:#1A1405;border-radius:999px;font-size:12px;padding:1px 7px;margin-left:4px}
+  .a-body{padding-top:24px;padding-bottom:60px}
+  .a-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+  .a-stats div{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:13px;color:var(--muted)}
+  .a-stats b{display:block;font-family:Fraunces;font-size:24px;color:var(--ink)}
+  .a-bar{display:flex;gap:10px;margin-bottom:14px}
+  .a-bar .search{flex:1;min-width:0}
+  .a-n{opacity:.7;font-size:12px;margin-left:2px}
+  .a-list{display:flex;flex-direction:column;gap:10px}
+  .ord{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--sky);border-radius:12px;overflow:hidden}
+  .ord.st-new{border-left-color:var(--gold)}
+  .ord.st-confirmed,.ord.st-preparing{border-left-color:#9C8CF2}
+  .ord.st-out_for_delivery,.ord.st-ready_for_pickup{border-left-color:#F2A65A}
+  .ord.st-completed{border-left-color:#4CC38A;opacity:.85}
+  .ord.st-cancelled{border-left-color:#F28B82;opacity:.6}
+  .ord-h{display:flex;align-items:center;gap:14px;padding:14px 16px;cursor:pointer}
+  .ord-main{flex:1;min-width:0}
+  .ord-main b{display:block}
+  .ord-main small{color:var(--muted)}
+  .ord-tot{font-weight:700;white-space:nowrap}
+  .a-status{width:auto !important;padding:8px 10px !important;font-size:14px}
+  .ord-b{display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:4px 16px 16px;border-top:1px solid var(--line)}
+  .ord-col h4{margin:14px 0 8px;font-family:Fraunces;font-size:16px}
+  .ord-col .r{display:flex;justify-content:space-between;gap:10px;font-size:14px;padding:3px 0;color:var(--muted)}
+  .ord-wide{grid-column:1/-1}
+  .a-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .a-danger{background:#B3261E;color:#fff}
+  .a-add{margin-bottom:18px}
+  .a-add summary{color:var(--sky)}
+  .a-grid{display:grid;grid-template-columns:2fr 1.3fr 1fr;gap:10px;margin-top:14px}
+  .a-span{grid-column:1/-1}
+  .a-menu{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:12px}
+  .mi{display:flex;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px}
+  .mi.is-hidden{opacity:.55}
+  .mi .ph{width:72px;height:72px;border-radius:10px;overflow:hidden;flex:0 0 auto}
+  .mi-f{flex:1;display:flex;flex-direction:column;gap:6px;min-width:0}
+  .mi-f input[type=text]{padding:7px 10px;font-size:14px}
+  .mi-name{font-weight:700}
+  .mi-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .mi-cat{flex:1;min-width:120px}
+  .mi-price{display:flex;align-items:center;gap:6px;margin:0;font-size:13px;color:var(--muted);font-weight:600}
+  .mi-price input{width:90px !important}
+  .tick{display:flex;align-items:center;gap:5px;margin:0;font-weight:500;font-size:13px;color:var(--muted)}
+  .tick input{accent-color:var(--sky)}
+  input[type=password]{width:100%;border:1px solid #3A5168;border-radius:8px;padding:12px;font:inherit;background:var(--panel);color:var(--ink)}
+  input[type=password]:focus{outline:0;border-color:var(--sky);box-shadow:0 0 0 3px rgba(111,179,230,.2)}
+  .foot-admin{color:var(--muted);font-size:13px;margin-left:10px;opacity:.7}
+
   @media (max-width:880px){
+    .a-stats{grid-template-columns:1fr 1fr}
+    .ord-b{grid-template-columns:1fr}
+    .a-grid{grid-template-columns:1fr}
+    .a-menu{grid-template-columns:1fr}
+    .ord-h{flex-wrap:wrap}
     nav.links{display:none}
     .hero .wrap,.story .wrap{grid-template-columns:1fr}
     .hero::after{width:360px;height:140px;opacity:.5}
@@ -293,7 +360,8 @@
   </section>
 </main>
 
-<footer><div class="ankara t" style="margin-top:-26px;margin-bottom:22px"></div>© <span id="yr"></span> <b>Zainab's Tastee Galour</b> · Nigerian snacks &amp; small chops</footer>
+<footer><div class="ankara t" style="margin-top:-26px;margin-bottom:22px"></div>© <span id="yr"></span> <b>Zainab's Tastee Galour</b> · Nigerian snacks &amp; small chops <a href="#admin" class="foot-admin" data-a="openadmin">Admin</a></footer>
+<div id="adminApp" hidden></div>
 
 <button class="mbar" id="mbar"><span id="mbarCount">0 items</span><span>View cart →</span></button>
 <div class="overlay" id="overlay"></div>
@@ -325,7 +393,13 @@ const STORE = {
   deliveryTime: "45–60 min",
   // Paste your Google Apps Script web-app URL here to send email confirmations
   // from your Gmail (see the setup guide). Leave "" to turn email off.
-  orderEmailEndpoint: ""
+  orderEmailEndpoint: "",
+  // Database (Supabase). The anon/publishable key is meant to be public;
+  // customer orders are protected by the database's security rules.
+  supabaseUrl: "",
+  supabaseAnonKey: "",
+  adminEmailDomain: "zainabs-tastee-galour.app",   // username "admin" signs in as admin@<this>
+  countryCode: "973"
 };
 
 /* MENU — sample items & prices: replace with your own.
@@ -681,17 +755,17 @@ ${del ? `Deliver to: ${form.areaSel} — ${form.address}${lastOrder.house ? `\nH
 When: ${form.when}
 Payment: ${form.pay}${form.notes ? `\nNotes: ${form.notes}` : ""}`;
   view = "done"; renderDrawer();
-  sendConfirmation(lastOrder);
+  finalizeOrder(lastOrder);
 }
 function renderDone(){
-  const emailOn = !!STORE.orderEmailEndpoint;
-  $("#dTitle").textContent = emailOn ? "Placing your order…" : "Almost done!";
+  const auto = SB_ON() || !!STORE.orderEmailEndpoint;
+  $("#dTitle").textContent = auto ? "Placing your order…" : "Almost done!";
   const wa = `https://wa.me/${STORE.whatsapp}?text=${encodeURIComponent(lastOrderText)}`;
   $("#dBody").innerHTML = `
     <div class="done">
-      <h3 id="doneHead">${emailOn ? "Sending your order…" : "Send your order to us"}</h3>
-      <div id="mailStatus" class="mail" style="${emailOn ? "" : "display:none"}"><span class="spin"></span>Sending your order and emailing a confirmation to <b>${esc(lastOrder.email)}</b>…</div>
-      <p class="small" id="waLead">${emailOn ? "You can also send it on WhatsApp for a faster reply." : "Tap the green button to open WhatsApp with your order ready. <b>Your order is only received once you press send in WhatsApp.</b>"}</p>
+      <h3 id="doneHead">${auto ? "Sending your order…" : "Send your order to us"}</h3>
+      <div id="mailStatus" class="mail" style="${auto ? "" : "display:none"}"><span class="spin"></span>Sending your order to the shop…</div>
+      <p class="small" id="waLead">${auto ? "" : "Tap the green button to open WhatsApp with your order ready. <b>Your order is only received once you press send in WhatsApp.</b>"}</p>
       <a class="btn wa full" href="${wa}" target="_blank" rel="noopener">Send order on WhatsApp</a>
       <div class="order-box" id="orderBox">${esc(lastOrderText)}</div>
       <p class="small">WhatsApp not opening? Copy the order and send it to <b>${STORE.phoneDisplay}</b>.</p>
@@ -704,24 +778,28 @@ function renderDone(){
   };
   $("#newOrder").onclick = () => { for(const k in cart) delete cart[k]; saveCart(); form.geo = null; geoState = "ask"; renderMenu(); renderCartBits(); closeDrawer(); toast("Thank you — e se!"); };
 }
-async function sendConfirmation(order){
-  if(!STORE.orderEmailEndpoint) return;
-  const box = () => $("#mailStatus");
-  try{
-    const ctrl = new AbortController(); setTimeout(() => ctrl.abort(), 20000);
-    const r = await fetch(STORE.orderEmailEndpoint, {method:"POST", headers:{"Content-Type":"text/plain;charset=utf-8"}, body:JSON.stringify(order), signal:ctrl.signal});
-    const j = await r.json();
-    if(!j.ok) throw new Error(j.error || "failed");
-    if(!box()) return;
+async function sendEmail(order){
+  const ctrl = new AbortController(); setTimeout(() => ctrl.abort(), 20000);
+  const r = await fetch(STORE.orderEmailEndpoint, {method:"POST", headers:{"Content-Type":"text/plain;charset=utf-8"}, body:JSON.stringify(order), signal:ctrl.signal});
+  const j = await r.json(); if(!j.ok) throw new Error(j.error || "failed");
+}
+async function finalizeOrder(order){
+  if(!SB_ON() && !STORE.orderEmailEndpoint) return;
+  const [saved, mailed] = await Promise.all([
+    SB_ON() ? saveOrderToDb(order).then(() => true, () => false) : Promise.resolve(null),
+    STORE.orderEmailEndpoint ? sendEmail(order).then(() => true, () => false) : Promise.resolve(null)]);
+  const box = $("#mailStatus"); if(!box) return;
+  if(saved === true || mailed === true){
     $("#dTitle").textContent = "Order received";
     $("#doneHead").textContent = "Thank you, " + order.name.split(" ")[0] + "! 🎉";
-    box().className = "mail ok";
-    box().innerHTML = `✓ We've received order <b>${esc(order.ref)}</b>. A confirmation has been sent to <b>${esc(order.email)}</b> (check your spam folder if you don't see it).`;
-  }catch(e){
-    if(!box()) return;
+    box.className = "mail ok";
+    box.innerHTML = `✓ We've received order <b>${esc(order.ref)}</b> and will contact you on <b>${esc(order.phone)}</b> to confirm.` +
+      (mailed === true ? ` A confirmation has been sent to <b>${esc(order.email)}</b> (check your spam folder if you don't see it).` : "");
+    $("#waLead").textContent = "Want a quicker reply? You can also send it to us on WhatsApp.";
+  }else{
     $("#dTitle").textContent = "Almost done!";
     $("#doneHead").textContent = "Please send your order on WhatsApp";
-    box().innerHTML = `We couldn't send your confirmation email just now. <b>Please send your order on WhatsApp below</b> so we receive it.`;
+    box.innerHTML = `We couldn't send your order online just now. <b>Please send it on WhatsApp below</b> so we receive it.`;
     $("#waLead").innerHTML = "<b>Your order is only received once you press send in WhatsApp.</b>";
   }
 }
@@ -745,7 +823,362 @@ $("#closeCart").onclick = closeDrawer;
 $("#overlay").onclick = closeDrawer;
 document.addEventListener("keydown", e => { if(e.key==="Escape") closeDrawer(); });
 
+
+/* =========================================================
+   Database (Supabase) — orders, menu, admin
+   ========================================================= */
+const SB_ON = () => !!(STORE.supabaseUrl && STORE.supabaseAnonKey);
+let session = (() => { try{ return JSON.parse(sessionStorage.getItem("ztg-admin")); }catch(e){ return null; } })();
+function saveSession(s){ session = s; try{ s ? sessionStorage.setItem("ztg-admin", JSON.stringify(s)) : sessionStorage.removeItem("ztg-admin"); }catch(e){} }
+
+async function sbRaw(path, {method="GET", body, prefer, token}={}){
+  const headers = {apikey: STORE.supabaseAnonKey, "Content-Type": "application/json"};
+  if(token) headers.Authorization = "Bearer " + token;
+  if(prefer) headers.Prefer = prefer;
+  const ctrl = new AbortController(); const t = setTimeout(() => ctrl.abort(), 20000);
+  try{
+    const r = await fetch(STORE.supabaseUrl.replace(/\/+$/,"") + path, {method, headers, body: body === undefined ? undefined : JSON.stringify(body), signal: ctrl.signal});
+    const text = await r.text(); let data = null;
+    try{ data = text ? JSON.parse(text) : null; }catch(e){ data = text; }
+    if(!r.ok){
+      const msg = (data && (data.msg || data.message || data.error_description || data.error)) || ("Request failed (" + r.status + ")");
+      throw Object.assign(new Error(msg), {status: r.status});
+    }
+    return data;
+  } finally { clearTimeout(t); }
+}
+async function adminToken(){
+  if(!session) throw Object.assign(new Error("Please sign in again."), {status: 401});
+  if(Date.now() > session.expires_at){
+    try{
+      const d = await sbRaw("/auth/v1/token?grant_type=refresh_token", {method:"POST", body:{refresh_token: session.refresh_token}});
+      saveSession({access_token: d.access_token, refresh_token: d.refresh_token, expires_at: Date.now() + (d.expires_in - 60) * 1000});
+    }catch(e){ saveSession(null); throw Object.assign(new Error("Your session ended. Please sign in again."), {status: 401}); }
+  }
+  return session.access_token;
+}
+const sbAdmin = async (path, opts={}) => sbRaw(path, {...opts, token: await adminToken()});
+
+/* ----- Menu from the database (falls back to the built-in menu) ----- */
+function rowToItem(r){ return {id:r.id, cat:r.cat, name:r.name, desc:r.description || "", price:Number(r.price), art:r.art || "bowl", badge:r.badge || "", featured:!!r.featured, soldOut:!!r.sold_out, hidden:!!r.hidden, img:r.img || "", sort:r.sort}; }
+async function loadMenuFromDb(){
+  if(!SB_ON()) return;
+  try{
+    const rows = await sbRaw("/rest/v1/menu_items?select=*&hidden=eq.false&order=sort.asc,name.asc");
+    if(Array.isArray(rows) && rows.length){
+      MENU.length = 0; rows.forEach(r => MENU.push(rowToItem(r)));
+      if(activeCat !== "All" && !MENU.some(m => m.cat === activeCat)) activeCat = "All";
+      renderStatic(); renderChips(); renderMenu(); renderCartBits();
+    }
+  }catch(e){ /* keep built-in menu */ }
+}
+
+/* ----- Save a customer's order ----- */
+async function saveOrderToDb(o){
+  if(!SB_ON()) return null;
+  const g = form.geo;
+  await sbRaw("/rest/v1/orders", {method:"POST", prefer:"return=minimal", body:{
+    ref:o.ref, customer_name:o.name, phone:o.phone, email:o.email || null, mode:o.mode,
+    area:o.area || null, address:o.address || null, house:o.house || null, directions:o.directions || null,
+    map_url:o.map || null, lat: o.map && g ? g.lat : null, lng: o.map && g ? g.lng : null,
+    when_text:o.when, payment:o.pay, notes:o.notes || null, items:o.items,
+    subtotal:o.subtotal, delivery_fee:o.fee, total:o.total, currency:o.currency }});
+  return true;
+}
+
+/* =========================================================
+   Admin tab  (open with the "Admin" link at the bottom, or #admin)
+   ========================================================= */
+const STATUSES = [["new","New"],["confirmed","Confirmed"],["preparing","Preparing"],["out_for_delivery","Out for delivery"],["ready_for_pickup","Ready for pickup"],["completed","Completed"],["cancelled","Cancelled"]];
+const statusLabel = s => (STATUSES.find(x => x[0] === s) || [s, s])[1];
+const ART_FOR_CAT = {"Small chops":"puff","Pastries":"pie","Suya & grills":"suya","Crunchy snacks":"jar","Drinks":"zobo","Party trays":"tray"};
+const A = {tab:"orders", orders:[], menu:[], filter:"active", q:"", open:null, confirmDel:null, seen:null, loading:false, err:"", busy:false, poll:null};
+
+function adminVisible(){ return location.hash === "#admin"; }
+function route(){
+  const on = adminVisible();
+  document.body.classList.toggle("in-admin", on);
+  $("#adminApp").hidden = !on;
+  if(on){ closeDrawer(); renderAdmin(); if(session && SB_ON()) loadAdminData(); window.scrollTo(0,0); }
+  else { document.title = "Zainab's Tastee Galour — Order Snacks Online"; }
+}
+
+function renderAdmin(){
+  const el = $("#adminApp");
+  if(!SB_ON()){
+    el.innerHTML = `<div class="a-login"><div class="a-card"><h2>Admin</h2><p class="small">The order database isn't connected yet. Once it is, you can sign in here to see and manage orders.</p><a href="#" class="btn btn-ghost full" data-a="exit">← Back to the shop</a></div></div>`;
+    return;
+  }
+  if(!session){
+    el.innerHTML = `<div class="a-login"><form class="a-card" id="aLogin" onsubmit="return false">
+      <h2>Admin sign in</h2><p class="small" style="margin:6px 0 18px">${STORE.name}</p>
+      <div class="f"><label for="aUser">Username</label><input type="text" id="aUser" autocomplete="username" value="admin"></div>
+      <div class="f"><label for="aPass">Password</label><input type="password" id="aPass" autocomplete="current-password"></div>
+      <div class="a-err" id="aErr">${esc(A.err)}</div>
+      <button class="btn btn-main full" id="aGo" data-a="login">Sign in</button>
+      <a href="#" class="small" data-a="exit" style="display:block;text-align:center;margin-top:14px">← Back to the shop</a>
+    </form></div>`;
+    setTimeout(() => { const p = $("#aPass"); if(p) p.focus(); }, 30);
+    return;
+  }
+  const newCount = A.orders.filter(o => o.status === "new").length;
+  el.innerHTML = `
+    <div class="a-top"><div class="wrap">
+      <div class="logo"><div class="logo-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E3C873" stroke-width="2.2" stroke-linecap="round"><path d="M3 12h18M5 12a7 7 0 0 0 14 0M8 8c0-2 1-3 2-4M12 8c0-2 1-3 2-4"/></svg></div><div><b>Admin</b><small>${STORE.name}</small></div></div>
+      <div class="a-actions"><a href="#" class="btn btn-ghost a-sm" data-a="exit">View shop</a><button class="btn btn-ghost a-sm" data-a="logout">Sign out</button></div>
+    </div>
+    <div class="wrap a-tabs">
+      ${[["orders","Orders" + (newCount ? ` <span class="a-dot">${newCount}</span>` : "")],["menu","Menu"],["account","Account"]].map(([k,l]) => `<button class="${A.tab===k?"on":""}" data-a="tab" data-v="${k}">${l}</button>`).join("")}
+    </div></div>
+    <div class="wrap a-body" id="aBody">${A.tab==="orders" ? ordersHtml() : A.tab==="menu" ? menuHtml() : accountHtml()}</div>`;
+}
+
+/* ----- Orders ----- */
+function isToday(d){ const x = new Date(d), n = new Date(); return x.toDateString() === n.toDateString(); }
+function ago(d){ const s = (Date.now() - new Date(d)) / 1000; if(s < 60) return "just now"; if(s < 3600) return Math.floor(s/60) + " min ago"; if(s < 86400) return Math.floor(s/3600) + " h ago"; return new Date(d).toLocaleDateString(undefined,{day:"numeric",month:"short"}); }
+function waLink(phone){ let d = (phone || "").replace(/\D/g,""); if(d.length && d.length <= 8) d = STORE.countryCode + d; return "https://wa.me/" + d; }
+function ordersHtml(){
+  if(A.loading && !A.orders.length) return `<p class="small" style="padding:40px 0;text-align:center"><span class="spin"></span>Loading orders…</p>`;
+  const today = A.orders.filter(o => isToday(o.created_at) && o.status !== "cancelled");
+  const active = A.orders.filter(o => !["completed","cancelled"].includes(o.status));
+  const q = A.q.trim().toLowerCase();
+  const list = A.orders.filter(o =>
+    (A.filter === "all" || (A.filter === "active" ? !["completed","cancelled"].includes(o.status) : o.status === A.filter)) &&
+    (!q || [o.ref,o.customer_name,o.phone,o.email,o.area,o.address].join(" ").toLowerCase().includes(q)));
+  const chips = [["active","Active"],["all","All"],...STATUSES].map(([k,l]) => {
+    const n = k==="all" ? A.orders.length : k==="active" ? active.length : A.orders.filter(o => o.status===k).length;
+    return `<button class="chip ${A.filter===k?"on":""}" data-a="filter" data-v="${k}">${l} <span class="a-n">${n}</span></button>`; }).join("");
+  return `
+    <div class="a-stats">
+      <div><b>${today.length}</b>Orders today</div>
+      <div><b>${money(today.reduce((s,o) => s + Number(o.total), 0))}</b>Sales today</div>
+      <div><b>${A.orders.filter(o => o.status==="new").length}</b>New, not confirmed</div>
+      <div><b>${active.length}</b>Active orders</div>
+    </div>
+    <div class="a-bar">
+      <label class="search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9FB3C6" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input type="text" id="aq" placeholder="Search name, phone, order no…" value="${esc(A.q)}"></label>
+      <button class="btn btn-ghost a-sm" data-a="refresh">${A.loading ? `<span class="spin"></span>` : "↻"} Refresh</button>
+    </div>
+    <div class="chips">${chips}</div>
+    ${A.err ? `<div class="a-err" style="display:block">${esc(A.err)}</div>` : ""}
+    <div class="a-list">${list.length ? list.map(orderCard).join("") : `<div class="empty">No orders here yet.</div>`}</div>
+    <p class="small" style="text-align:center;margin-top:18px">Updates automatically every 20 seconds.</p>`;
+}
+function orderCard(o){
+  const open = A.open === o.id;
+  const items = Array.isArray(o.items) ? o.items : [];
+  return `<div class="ord st-${o.status} ${open?"open":""}">
+    <div class="ord-h" data-a="toggle" data-v="${o.id}">
+      <div class="ord-main"><b>${esc(o.customer_name)}</b><small>#${esc(o.ref)} · ${ago(o.created_at)} · ${o.mode==="delivery" ? "🛵 Delivery" + (o.area ? " · " + esc(o.area) : "") : "🏪 Pickup"}</small></div>
+      <div class="ord-tot">${money(o.total)}</div>
+      <select class="a-status" data-status="${o.id}" aria-label="Order status">${STATUSES.map(([k,l]) => `<option value="${k}" ${o.status===k?"selected":""}>${l}</option>`).join("")}</select>
+    </div>
+    ${open ? `<div class="ord-b">
+      <div class="ord-col">
+        <h4>Items</h4>
+        ${items.map(i => `<div class="r"><span>${Number(i.qty)} × ${esc(i.name)}</span><span>${money(i.line)}</span></div>`).join("")}
+        <div class="r"><span>Subtotal</span><span>${money(o.subtotal)}</span></div>
+        ${o.mode==="delivery" ? `<div class="r"><span>Delivery</span><span>${Number(o.delivery_fee) ? money(o.delivery_fee) : "Free"}</span></div>` : ""}
+        <div class="r" style="font-weight:700;color:var(--ink)"><span>Total</span><span>${money(o.total)}</span></div>
+        <div class="r"><span>Payment</span><span>${esc(o.payment || "")}</span></div>
+        <div class="r"><span>When</span><span>${esc(o.when_text || "")}</span></div>
+        ${o.notes ? `<div class="r"><span>Notes</span><span>${esc(o.notes)}</span></div>` : ""}
+      </div>
+      <div class="ord-col">
+        <h4>${o.mode==="delivery" ? "Deliver to" : "Pickup"}</h4>
+        ${o.mode==="delivery" ? `<div class="addr">${esc(o.area || "")}<br>${esc(o.address || "")}${o.house ? `<br><b>${esc(o.house)}</b>` : ""}${o.directions ? `<br><span class="small">Driver: ${esc(o.directions)}</span>` : ""}</div>
+          ${o.map_url ? `<a class="btn btn-ghost a-sm" href="${esc(o.map_url)}" target="_blank" rel="noopener">📍 Open map</a>` : ""}` : `<div class="addr">${esc(STORE.area)}</div>`}
+        <h4 style="margin-top:14px">Customer</h4>
+        <div class="addr">${esc(o.phone)}${o.email ? `<br>${esc(o.email)}` : ""}</div>
+        <div class="a-row"><a class="btn wa a-sm" href="${waLink(o.phone)}" target="_blank" rel="noopener">WhatsApp</a>${o.email ? `<a class="btn btn-ghost a-sm" href="mailto:${esc(o.email)}?subject=${encodeURIComponent("Your order " + o.ref)}">Email</a>` : ""}</div>
+        <p class="small" style="margin:6px 0 0">Placed ${new Date(o.created_at).toLocaleString()}</p>
+      </div>
+      <div class="ord-col ord-wide">
+        <h4>Private note <span class="small">(only admins see this)</span></h4>
+        <textarea id="note-${o.id}" rows="2" placeholder="e.g. Called customer, delivering at 7pm">${esc(o.admin_note || "")}</textarea>
+        <div class="a-row">
+          <button class="btn btn-main a-sm" data-a="note" data-v="${o.id}">Save note</button>
+          ${A.confirmDel === o.id
+            ? `<span class="small" style="align-self:center">Delete this order for good?</span><button class="btn a-sm a-danger" data-a="delyes" data-v="${o.id}">Yes, delete</button><button class="btn btn-ghost a-sm" data-a="delno">Keep</button>`
+            : `<button class="btn btn-ghost a-sm" data-a="del" data-v="${o.id}" style="margin-left:auto">Delete order</button>`}
+        </div>
+      </div>
+    </div>` : ""}
+  </div>`;
+}
+
+async function loadAdminData(silent){
+  if(A.busy) return; A.busy = true;
+  if(!silent){ A.loading = true; if(A.tab==="orders") renderAdmin(); }
+  try{
+    const ok = await sbAdmin("/rest/v1/rpc/is_admin", {method:"POST", body:{}});
+    if(ok !== true){ A.err = "This account isn't an admin."; saveSession(null); A.busy = false; A.loading = false; renderAdmin(); return; }
+    const [orders, menu] = await Promise.all([
+      sbAdmin("/rest/v1/orders?select=*&order=created_at.desc&limit=500"),
+      sbAdmin("/rest/v1/menu_items?select=*&order=sort.asc,name.asc")]);
+    const fresh = new Set(orders.map(o => o.id));
+    if(A.seen){ const added = orders.filter(o => !A.seen.has(o.id)); if(added.length) toast(added.length === 1 ? "New order from " + added[0].customer_name : added.length + " new orders"); }
+    A.seen = fresh; A.orders = orders; A.menu = menu.map(rowToItem); A.err = "";
+    const n = orders.filter(o => o.status === "new").length;
+    document.title = (n ? `(${n}) ` : "") + "Admin · " + STORE.name;
+  }catch(e){
+    if(e.status === 401 || /JWT|session/i.test(e.message)){ saveSession(null); A.err = "Please sign in again."; }
+    else A.err = "Couldn't load data: " + e.message;
+  }
+  A.loading = false; A.busy = false;
+  if(adminVisible() && !(silent && document.activeElement && document.activeElement.closest && document.activeElement.closest("#adminApp textarea, #adminApp input, #adminApp select"))) renderAdmin();
+}
+
+/* ----- Menu management ----- */
+function menuHtml(){
+  const cats = [...new Set(A.menu.map(m => m.cat).concat(Object.keys(ART_FOR_CAT)))];
+  return `
+    <p class="small" style="margin:0 0 16px">Changes appear on the shop straight away. Tick <b>Sold out</b> to stop orders for an item today, or <b>Hide</b> to remove it from the menu.</p>
+    ${A.err ? `<div class="a-err" style="display:block">${esc(A.err)}</div>` : ""}
+    <details class="a-add"><summary>+ Add a new item</summary>
+      <div class="a-grid">
+        <div class="f"><label>Name</label><input type="text" id="nName" placeholder="e.g. Jollof Rice & Chicken"></div>
+        <div class="f"><label>Category</label><input type="text" id="nCat" list="catList" placeholder="e.g. Small chops"></div>
+        <div class="f"><label>Price (${STORE.currency})</label><input type="text" id="nPrice" inputmode="decimal" placeholder="1.500"></div>
+        <div class="f a-span"><label>Description</label><input type="text" id="nDesc" placeholder="Short description customers will see"></div>
+      </div>
+      <datalist id="catList">${cats.map(c => `<option value="${esc(c)}">`).join("")}</datalist>
+      <button class="btn btn-main a-sm" data-a="madd">Add to menu</button>
+    </details>
+    <div class="a-menu">${A.menu.map(m => `
+      <div class="mi ${m.hidden?"is-hidden":""}" data-mid="${m.id}">
+        <div class="ph">${pic({...m, id:"a"+m.id})}</div>
+        <div class="mi-f">
+          <input type="text" class="mi-name" value="${esc(m.name)}" aria-label="Name">
+          <input type="text" class="mi-desc" value="${esc(m.desc)}" aria-label="Description">
+          <div class="mi-row">
+            <input type="text" class="mi-cat" list="catList" value="${esc(m.cat)}" aria-label="Category">
+            <label class="mi-price">${STORE.currency} <input type="text" class="mi-pr" inputmode="decimal" value="${Number(m.price).toFixed(STORE.decimals)}" aria-label="Price"></label>
+          </div>
+          <div class="mi-row">
+            <label class="tick"><input type="checkbox" class="mi-so" ${m.soldOut?"checked":""}> Sold out</label>
+            <label class="tick"><input type="checkbox" class="mi-hd" ${m.hidden?"checked":""}> Hide</label>
+            <label class="tick"><input type="checkbox" class="mi-ft" ${m.featured?"checked":""}> Favourite</label>
+            <span style="margin-left:auto;display:flex;gap:6px">
+              ${A.confirmDel === "m:" + m.id
+                ? `<button class="btn a-sm a-danger" data-a="mdelyes" data-v="${m.id}">Delete</button><button class="btn btn-ghost a-sm" data-a="delno">Keep</button>`
+                : `<button class="btn btn-ghost a-sm" data-a="mdel" data-v="${m.id}">Remove</button>`}
+              <button class="btn btn-main a-sm" data-a="msave" data-v="${m.id}">Save</button>
+            </span>
+          </div>
+        </div>
+      </div>`).join("") || `<div class="empty">No menu items in the database yet.</div>`}</div>`;
+}
+function readMenuRow(id){
+  const r = document.querySelector(`.mi[data-mid="${id}"]`);
+  const price = parseFloat(r.querySelector(".mi-pr").value.replace(",", "."));
+  return {name: r.querySelector(".mi-name").value.trim(), description: r.querySelector(".mi-desc").value.trim(),
+    cat: r.querySelector(".mi-cat").value.trim(), price,
+    sold_out: r.querySelector(".mi-so").checked, hidden: r.querySelector(".mi-hd").checked, featured: r.querySelector(".mi-ft").checked};
+}
+
+/* ----- Account ----- */
+function accountHtml(){
+  return `<div class="a-card" style="max-width:460px">
+    <h3 style="margin-bottom:6px">Change admin password</h3>
+    <p class="small" style="margin:0 0 16px">Use at least 10 characters. You'll use it next time you sign in.</p>
+    <div class="f"><label for="pw1">New password</label><input type="password" id="pw1" autocomplete="new-password"></div>
+    <div class="f"><label for="pw2">Repeat new password</label><input type="password" id="pw2" autocomplete="new-password"></div>
+    <div class="a-err" id="pwErr"></div>
+    <button class="btn btn-main" data-a="pw">Update password</button>
+  </div>`;
+}
+
+/* ----- Admin actions ----- */
+document.addEventListener("click", async e => {
+  const b = e.target.closest("#adminApp [data-a], footer [data-a]"); if(!b) return;
+  const a = b.dataset.a, v = b.dataset.v;
+  if(b.tagName === "A") e.preventDefault();
+  try{
+    if(a === "exit"){ history.pushState("", "", location.pathname + location.search); route(); }
+    else if(a === "openadmin"){ location.hash = "admin"; }
+    else if(a === "login"){
+      const u = $("#aUser").value.trim(), p = $("#aPass").value;
+      if(!u || !p){ $("#aErr").textContent = "Enter your username and password."; $("#aErr").style.display = "block"; return; }
+      b.disabled = true; b.innerHTML = `<span class="spin"></span>Signing in…`;
+      try{
+        const email = u.includes("@") ? u.toLowerCase() : u.toLowerCase() + "@" + STORE.adminEmailDomain;
+        const d = await sbRaw("/auth/v1/token?grant_type=password", {method:"POST", body:{email, password:p}});
+        saveSession({access_token:d.access_token, refresh_token:d.refresh_token, expires_at: Date.now() + (d.expires_in - 60) * 1000});
+        A.err = ""; A.tab = "orders"; A.seen = null; renderAdmin(); loadAdminData();
+      }catch(err){
+        A.err = /invalid/i.test(err.message) ? "Wrong username or password." : "Couldn't sign in: " + err.message;
+        renderAdmin(); setTimeout(() => { const el = $("#aErr"); if(el){ el.style.display = "block"; } }, 0);
+      }
+    }
+    else if(a === "logout"){ saveSession(null); A.orders = []; A.menu = []; A.seen = null; A.err = ""; renderAdmin(); }
+    else if(a === "tab"){ A.tab = v; A.confirmDel = null; A.err = ""; renderAdmin(); }
+    else if(a === "filter"){ A.filter = v; renderAdmin(); }
+    else if(a === "refresh"){ loadAdminData(); }
+    else if(a === "toggle"){ if(e.target.closest("select")) return; A.open = A.open === v ? null : v; A.confirmDel = null; renderAdmin(); }
+    else if(a === "note"){
+      const note = $("#note-" + v).value.trim().slice(0, 1000);
+      await sbAdmin(`/rest/v1/orders?id=eq.${v}`, {method:"PATCH", prefer:"return=minimal", body:{admin_note: note || null}});
+      const o = A.orders.find(x => x.id === v); if(o) o.admin_note = note; toast("Note saved ✓");
+    }
+    else if(a === "del"){ A.confirmDel = v; renderAdmin(); }
+    else if(a === "delno"){ A.confirmDel = null; renderAdmin(); }
+    else if(a === "delyes"){
+      await sbAdmin(`/rest/v1/orders?id=eq.${v}`, {method:"DELETE", prefer:"return=minimal"});
+      A.orders = A.orders.filter(o => o.id !== v); A.confirmDel = null; A.open = null; renderAdmin(); toast("Order deleted");
+    }
+    else if(a === "msave"){
+      const d = readMenuRow(v);
+      if(!d.name || !d.cat || !(d.price >= 0)){ toast("Name, category and a valid price are needed"); return; }
+      d.price = Math.round(d.price * 1000) / 1000;
+      await sbAdmin(`/rest/v1/menu_items?id=eq.${encodeURIComponent(v)}`, {method:"PATCH", prefer:"return=minimal", body:d});
+      Object.assign(A.menu.find(m => m.id === v), {name:d.name, desc:d.description, cat:d.cat, price:d.price, soldOut:d.sold_out, hidden:d.hidden, featured:d.featured});
+      renderAdmin(); toast("Saved ✓ — live on the shop"); loadMenuFromDb();
+    }
+    else if(a === "mdel"){ A.confirmDel = "m:" + v; renderAdmin(); }
+    else if(a === "mdelyes"){
+      await sbAdmin(`/rest/v1/menu_items?id=eq.${encodeURIComponent(v)}`, {method:"DELETE", prefer:"return=minimal"});
+      A.menu = A.menu.filter(m => m.id !== v); A.confirmDel = null; renderAdmin(); toast("Item removed"); loadMenuFromDb();
+    }
+    else if(a === "madd"){
+      const name = $("#nName").value.trim(), cat = $("#nCat").value.trim(), price = parseFloat($("#nPrice").value.replace(",", ".")), desc = $("#nDesc").value.trim();
+      if(!name || !cat || !(price >= 0)){ toast("Add a name, category and price"); return; }
+      const id = (name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 40) || "item") + "-" + Math.random().toString(36).slice(2, 6);
+      const row = {id, name, cat, price: Math.round(price * 1000) / 1000, description: desc || null, art: ART_FOR_CAT[cat] || "bowl", sort: (A.menu.length + 1) * 10};
+      await sbAdmin("/rest/v1/menu_items", {method:"POST", prefer:"return=minimal", body:row});
+      A.menu.push(rowToItem(row)); renderAdmin(); toast("Added ✓ — live on the shop"); loadMenuFromDb();
+    }
+    else if(a === "pw"){
+      const p1 = $("#pw1").value, p2 = $("#pw2").value, err = $("#pwErr");
+      const show = m => { err.textContent = m; err.style.display = "block"; };
+      if(p1.length < 10) return show("Please use at least 10 characters.");
+      if(p1 !== p2) return show("The two passwords don't match.");
+      b.disabled = true;
+      try{ await sbAdmin("/auth/v1/user", {method:"PUT", body:{password:p1}}); $("#pw1").value = $("#pw2").value = ""; err.style.display = "none"; toast("Password updated ✓"); }
+      catch(x){ show("Couldn't update: " + x.message); }
+      b.disabled = false;
+    }
+  }catch(err){
+    if(err.status === 401){ saveSession(null); A.err = "Please sign in again."; renderAdmin(); }
+    else toast("Something went wrong: " + err.message);
+  }
+});
+document.addEventListener("change", async e => {
+  const s = e.target.closest("#adminApp select[data-status]"); if(!s) return;
+  const id = s.dataset.status, o = A.orders.find(x => x.id === id), prev = o.status;
+  o.status = s.value; s.disabled = true;
+  try{ await sbAdmin(`/rest/v1/orders?id=eq.${id}`, {method:"PATCH", prefer:"return=minimal", body:{status:s.value}}); toast("Marked as " + statusLabel(s.value)); }
+  catch(err){ o.status = prev; toast("Couldn't update: " + err.message); }
+  renderAdmin();
+});
+document.addEventListener("input", e => {
+  if(e.target.id === "aq"){ A.q = e.target.value; const pos = e.target.selectionStart; renderAdmin(); const q = $("#aq"); if(q){ q.focus(); q.setSelectionRange(pos, pos); } }
+});
+setInterval(() => { if(adminVisible() && session && SB_ON() && A.tab === "orders") loadAdminData(true); }, 20000);
+window.addEventListener("hashchange", route);
+
 renderStatic(); renderChips(); renderMenu(); renderCartBits();
+loadMenuFromDb(); route();
 </script>
 </body>
 </html>
