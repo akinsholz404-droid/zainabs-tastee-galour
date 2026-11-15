@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zainab's Tastee Galour — Order Snacks Online</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B1622; --panel:#112131; --panel2:#152A3E; --line:#22384E;
+    --ink:#E6EEF6; --muted:#9FB3C6; --sky:#6FB3E6; --sky-d:#5AA0D6; --sky-ink:#06192A;
+    --deep:#135685; --gold:#C9A646; --gold-l:#E3C873;
+    --radius:16px; --shadow:0 10px 30px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:Figtree,system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+  h1,h2,h3{font-family:Fraunces,Georgia,serif;line-height:1.12;margin:0;font-weight:700;letter-spacing:-.2px}
+  button{font:inherit;cursor:pointer}
+  a{color:var(--sky)}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 22px}
+  .ankara{display:none}
+
+  header.top{position:sticky;top:0;z-index:30;background:rgba(11,22,34,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .top .wrap{display:flex;align-items:center;justify-content:space-between;height:70px;gap:12px}
+  .logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+  .logo-mark{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--deep),#0E3A5C);display:grid;place-items:center;border:1px solid var(--line)}
+  .logo b{font-family:Fraunces;font-size:20px;font-weight:700;display:block}
+  .logo small{color:var(--muted);font-size:12px;display:block;margin-top:-2px}
+  nav.links{display:flex;gap:26px}
+  nav.links a{text-decoration:none;color:var(--muted);font-weight:500;font-size:15px}
+  nav.links a:hover{color:var(--ink)}
+  .cart-btn{display:flex;align-items:center;gap:8px;background:var(--sky);color:var(--sky-ink);border:0;border-radius:10px;padding:10px 16px;font-weight:700}
+  .cart-btn:hover{background:var(--sky-d)}
+  .cart-btn .count{background:var(--sky-ink);color:var(--sky);border-radius:999px;min-width:22px;height:22px;display:grid;place-items:center;font-size:13px;padding:0 6px}
+
+  .hero{background:linear-gradient(160deg,#135685 0%,#0F4269 45%,#0B2C47 100%);color:var(--ink);position:relative;overflow:hidden}
+  .hero::after{content:"";position:absolute;right:-40px;bottom:0;width:560px;height:220px;opacity:.85;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 560 220'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23C9A646' stop-opacity='.9'/%3E%3Cstop offset='1' stop-color='%23C9A646' stop-opacity='.15'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M0 220 L150 90 L210 140 L330 20 L460 150 L520 110 L560 140 L560 220Z' fill='url(%23g)'/%3E%3C/svg%3E") no-repeat right bottom/contain}
+  .hero .wrap{position:relative;z-index:1;display:grid;grid-template-columns:1.15fr 1fr;gap:40px;align-items:center;padding-top:72px;padding-bottom:80px}
+  .eyebrow{display:inline-block;color:#BFE0F7;font-weight:600;font-size:14px;margin-bottom:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);padding:6px 12px;border-radius:999px}
+  .hero h1{font-size:clamp(36px,5vw,58px)}
+  .hero h1 em{font-style:normal;color:var(--gold-l)}
+  .hero p.lead{font-size:18px;color:#CFE0EE;max-width:520px;margin:18px 0 28px}
+  .cta{display:flex;gap:12px;flex-wrap:wrap}
+  .btn{border:0;border-radius:10px;padding:14px 24px;font-weight:700;font-size:16px;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+  .btn-gold,.btn-main{background:var(--sky);color:var(--sky-ink)}
+  .btn-gold:hover,.btn-main:hover{background:var(--sky-d)}
+  .btn-line{background:transparent;color:var(--ink);border:1px solid rgba(255,255,255,.35)}
+  .btn-line:hover{background:rgba(255,255,255,.06)}
+  .btn-ghost{background:var(--panel);color:var(--ink);border:1px solid var(--line)}
+  .perks{display:flex;gap:22px;flex-wrap:wrap;margin-top:28px;font-size:14px;color:#CFE0EE}
+  .perks span::before{content:"✓ ";color:var(--gold-l);font-weight:700}
+  .hero-card{background:rgba(11,22,34,.82);backdrop-filter:blur(6px);color:var(--ink);border:1px solid var(--line);border-radius:18px;padding:26px;box-shadow:var(--shadow);position:relative}
+  .hero-card h3{font-size:24px;margin:0 0 10px}
+  .feat{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--line)}
+  .feat:last-of-type{border:0}
+  .feat .ph{width:60px;height:60px;border-radius:12px;flex:0 0 auto;overflow:hidden}
+  .feat b{display:block}
+  .feat small{color:var(--muted)}
+  .feat .pr{margin-left:auto;font-weight:700;color:var(--sky);white-space:nowrap}
+
+  .strip{background:var(--panel);border-bottom:1px solid var(--line)}
+  .strip .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:20px 22px}
+  .strip div{font-size:14px;color:var(--muted)}
+  .strip b{display:block;font-family:Fraunces;font-size:19px;color:var(--ink)}
+
+  section{padding:68px 0}
+  .sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:24px}
+  .kicker{color:var(--gold-l);font-weight:600;font-size:14px;margin-bottom:6px}
+  .sec-head h2{font-size:38px}
+  .sec-head p{margin:8px 0 0;color:var(--muted)}
+  .search{display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:11px 16px;min-width:280px}
+  .search input{border:0;outline:0;font:inherit;width:100%;background:transparent;color:var(--ink)}
+  .search input[type=text]{border:0;padding:0;background:transparent;box-shadow:none}
+  .search input::placeholder{color:#6F859A}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+  .chip{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:8px 16px;font-weight:500;color:var(--muted)}
+  .chip:hover{color:var(--ink)}
+  .chip.on{background:var(--sky);color:var(--sky-ink);border-color:var(--sky);font-weight:700}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px}
+  .item{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:transform .15s,border-color .15s}
+  .item:hover{transform:translateY(-3px);border-color:#2F5170}
+  .item .pic{aspect-ratio:4/3;position:relative;overflow:hidden}
+  .pic img,.pic svg{width:100%;height:100%;object-fit:cover;display:block}
+  .badge{position:absolute;top:12px;left:12px;background:var(--gold);color:#1A1405;font-size:12px;font-weight:700;border-radius:999px;padding:4px 12px}
+  .item .body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
+  .item h3{font-size:19px}
+  .item p{margin:0;color:var(--muted);font-size:14px;flex:1}
+  .item .row{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+  .price{font-weight:700;font-size:17px;color:var(--ink)}
+  .add{background:var(--sky);color:var(--sky-ink);border:0;border-radius:10px;padding:9px 16px;font-weight:700}
+  .add:hover{background:var(--sky-d)}
+  .stepper{display:flex;align-items:center;gap:4px;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:3px}
+  .stepper button{width:32px;height:32px;border-radius:8px;border:0;background:var(--panel2);font-weight:700;font-size:18px;color:var(--sky)}
+  .stepper span{min-width:24px;text-align:center;font-weight:700}
+  .soldout{opacity:.5}
+  .empty{text-align:center;color:var(--muted);padding:40px;grid-column:1/-1}
+
+  .story{background:linear-gradient(180deg,var(--bg),#0E1D2D)}
+  .story .wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+  .story p{color:var(--muted);font-size:17px}
+  .story-art{border-radius:18px;overflow:hidden;aspect-ratio:5/4;border:1px solid var(--line)}
+  .story-art svg{width:100%;height:100%;display:block}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .step{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:28px}
+  .step .n{font-family:Fraunces;font-size:40px;font-weight:700;color:var(--gold-l);line-height:1;margin-bottom:10px}
+  .step h3{font-size:21px;margin-bottom:6px}
+  .step p{margin:0;color:var(--muted)}
+
+  .two{display:grid;grid-template-columns:1.3fr 1fr;gap:32px}
+  details{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin-bottom:10px}
+  summary{font-weight:600;cursor:pointer}
+  details p{margin:10px 0 0;color:var(--muted)}
+  .contact{background:linear-gradient(160deg,#135685,#0B2C47);border:1px solid var(--line);border-radius:var(--radius);padding:30px;position:relative;overflow:hidden}
+  .contact h3{font-size:26px;margin-bottom:14px}
+  .contact a{color:var(--gold-l)}
+  .contact .line{margin:10px 0;color:#CFE0EE}
+  .hours{width:100%;border-collapse:collapse;margin:16px 0 4px;font-size:14px}
+  .hours td{padding:6px 0;border-bottom:1px solid rgba(255,255,255,.12)}
+  .hours td:last-child{text-align:right}
+  footer{border-top:1px solid var(--line);color:var(--muted);text-align:center;font-size:14px;padding:26px 0 100px}
+  footer b{color:var(--ink);font-family:Fraunces}
+
+  .overlay{position:fixed;inset:0;background:rgba(3,10,18,.6);z-index:40;opacity:0;pointer-events:none;transition:opacity .2s}
+  .overlay.on{opacity:1;pointer-events:auto}
+  .drawer{position:fixed;top:0;right:0;height:100%;width:min(450px,100%);background:var(--bg);border-left:1px solid var(--line);z-index:50;transform:translateX(100%);transition:transform .25s ease;display:flex;flex-direction:column}
+  .drawer.on{transform:none}
+  .d-head{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;border-bottom:1px solid var(--line)}
+  .d-head h2{font-size:26px}
+  .x{border:1px solid var(--line);background:var(--panel);color:var(--ink);width:38px;height:38px;border-radius:10px;font-size:20px}
+  .d-body{flex:1;overflow:auto;padding:16px 22px}
+  .line-item{display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:10px}
+  .line-item .ph{width:52px;height:52px;border-radius:10px;overflow:hidden;flex:0 0 auto}
+  .ph img,.ph svg{width:100%;height:100%;object-fit:cover;display:block}
+  .line-item .nm{flex:1;font-weight:600;font-size:15px}
+  .line-item .nm small{display:block;color:var(--muted);font-weight:400}
+  .d-foot{padding:16px 22px;border-top:1px solid var(--line);background:var(--panel)}
+  .sum{display:flex;justify-content:space-between;margin:4px 0;color:var(--muted)}
+  .sum.total{color:var(--ink);font-weight:700;font-size:18px;margin-top:8px}
+  .note{font-size:13px;color:var(--gold-l);font-weight:600;margin:8px 0 0}
+  .full{width:100%;justify-content:center;margin-top:12px}
+  .btn:disabled{opacity:.45;cursor:not-allowed}
+  #agree{accent-color:var(--sky)}
+
+  form .f{margin-bottom:16px}
+  label{display:block;font-weight:700;font-size:14px;margin-bottom:6px}
+  input[type=text],input[type=tel],input[type=email],textarea,select{width:100%;border:1px solid #3A5168;border-radius:8px;padding:12px;font:inherit;background:var(--panel);color:var(--ink)}
+  input:focus,textarea:focus,select:focus{outline:0;border-color:var(--sky);box-shadow:0 0 0 3px rgba(111,179,230,.2)}
+  .toggle{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .toggle label{margin:0}
+  .toggle input{display:none}
+  .toggle span{display:block;text-align:center;border:1px solid #3A5168;background:var(--panel);border-radius:8px;padding:11px;font-weight:600;cursor:pointer;color:var(--muted)}
+  .toggle input:checked + span{border-color:var(--sky);background:rgba(111,179,230,.12);color:var(--ink)}
+  .err{color:#F28B82;font-size:13px;font-weight:600;margin-top:4px;display:none}
+  .f.bad .err{display:block}
+  .f.bad input,.f.bad select,.f.bad textarea{border-color:#F28B82}
+
+  .loc{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:16px}
+  .loc b{display:block;margin-bottom:4px}
+  .loc p{margin:0 0 10px;font-size:14px;color:var(--muted)}
+  .loc .acts{display:flex;gap:8px;flex-wrap:wrap}
+  .loc .btn{padding:9px 14px;font-size:14px}
+  .loc.ok{border-color:#2E7D5B;background:rgba(46,125,91,.12)}
+  .loc.warn{border-color:#8A6D2B;background:rgba(201,166,70,.10)}
+  .spin{display:inline-block;width:14px;height:14px;border:2px solid var(--muted);border-top-color:transparent;border-radius:50%;animation:sp 1s linear infinite;vertical-align:-2px;margin-right:6px}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  .review{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:12px}
+  .review h4{margin:0 0 8px;font-family:Fraunces;font-size:17px}
+  .review .r{display:flex;justify-content:space-between;gap:10px;font-size:14px;padding:3px 0}
+  .review .r span:first-child{color:var(--muted)}
+  .addr{font-size:15px;line-height:1.45}
+  .mail{border-radius:10px;padding:10px 12px;font-size:14px;margin:12px 0;background:var(--panel);border:1px solid var(--line);text-align:left}
+  .mail.ok{border-color:#2E7D5B;background:rgba(46,125,91,.12)}
+  .done{text-align:center;padding:10px 0}
+  .done h3{font-size:26px;margin:8px 0}
+  .order-box{background:var(--panel);border:1px dashed var(--line);border-radius:12px;padding:14px;text-align:left;white-space:pre-wrap;font-size:14px;margin:14px 0;max-height:220px;overflow:auto;color:#CFE0EE}
+  .wa{background:#25D366;color:#062A14}
+  .wa:hover{background:#1FBF5B}
+  .small{font-size:13px;color:var(--muted)}
+
+  .mbar{position:fixed;left:12px;right:12px;bottom:12px;z-index:35;display:none;background:var(--sky);color:var(--sky-ink);border:0;border-radius:12px;padding:14px 18px;font-weight:700;font-size:16px;justify-content:space-between;box-shadow:0 10px 24px rgba(0,0,0,.4)}
+  .toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:10px;font-weight:700;opacity:0;transition:.2s;z-index:60;pointer-events:none}
+  .toast.on{opacity:1;transform:translateX(-50%)}
+
+  @media (max-width:880px){
+    nav.links{display:none}
+    .hero .wrap,.story .wrap{grid-template-columns:1fr}
+    .hero::after{width:360px;height:140px;opacity:.5}
+    .strip .wrap{grid-template-columns:1fr 1fr}
+    .steps,.two{grid-template-columns:1fr}
+    .mbar.show{display:flex}
+    .top .cart-btn .lbl{display:none}
+    .logo small{display:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="ankara"></div>
+<header class="top">
+  <div class="wrap">
+    <a href="#top" class="logo" aria-label="Zainab's Tastee Galour home">
+      <div class="logo-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E3C873" stroke-width="2.2" stroke-linecap="round"><path d="M3 12h18M5 12a7 7 0 0 0 14 0M8 8c0-2 1-3 2-4M12 8c0-2 1-3 2-4"/></svg></div>
+      <div><b>Zainab's Tastee Galour</b><small>Nigerian snacks &amp; small chops</small></div>
+    </a>
+    <nav class="links">
+      <a href="#menu">Menu</a><a href="#story">Our story</a><a href="#how">How to order</a><a href="#contact">Contact</a>
+    </nav>
+    <button class="cart-btn" id="openCart" aria-label="Open cart">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4h2l2.4 11h11L21 8H6.2"/><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/></svg>
+      <span class="lbl">Cart</span> <span class="count" id="cartCount">0</span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" style="padding:0">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow">Authentic Nigerian snacks &amp; small chops</div>
+        <h1>Small chops, suya &amp; snacks <em>made the Naija way.</em></h1>
+        <p class="lead">Freshly made puff-puff, meat pies, chin chin, suya and chilled zobo. Order for yourself, the office or your next party, for delivery or pickup.</p>
+        <div class="cta">
+          <a href="#menu" class="btn btn-gold">Order now →</a>
+          <a href="#menu" class="btn btn-line" data-goto="Party trays">Party trays</a>
+        </div>
+        <div class="perks"><span>Made fresh daily</span><span>Pay on delivery</span><span>Event orders welcome</span></div>
+      </div>
+      <div class="hero-card">
+        <div class="ankara"></div>
+        <h3>Customer favourites</h3>
+        <div id="featured"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="strip"><div class="wrap" id="infoStrip"></div></div>
+
+  <section id="menu">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="kicker">Our menu</div>
+          <h2>What would you like today?</h2>
+          <p>Tap <b>Add</b> on anything you like, then open your cart to check out.</p>
+        </div>
+        <label class="search" aria-label="Search the menu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9FB3C6" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+          <input id="search" type="text" placeholder="Search puff-puff, suya, zobo…">
+        </label>
+      </div>
+      <div class="chips" id="chips"></div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <section class="story" id="story">
+    <div class="wrap">
+      <div class="story-art" id="storyArt"></div>
+      <div>
+        <div class="kicker">Our story</div>
+        <h2 style="font-size:38px;margin-bottom:16px">A taste of home in every bite</h2>
+        <p>Zainab's Tastee Galour brings the snacks Nigerians grow up with to your door: golden puff-puff, flaky meat pies, crunchy chin chin and smoky suya.</p>
+        <p>Everything is made in small batches with real ingredients, so it tastes like it came from a Nigerian kitchen, because it did.</p>
+        <a href="#menu" class="btn btn-main" style="margin-top:8px">See the menu</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <div class="sec-head"><div><div class="kicker">How to order</div><h2>Three easy steps</h2></div></div>
+      <div class="steps">
+        <div class="step"><div class="n">01</div><h3>Choose your snacks</h3><p>Browse the menu and add items to your cart. Change quantities any time.</p></div>
+        <div class="step"><div class="n">02</div><h3>Delivery or pickup</h3><p>Add your name, phone number and address, or collect from us.</p></div>
+        <div class="step"><div class="n">03</div><h3>Send on WhatsApp</h3><p>Your order opens in WhatsApp, ready to send. We'll reply to confirm your time.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" style="padding-top:0">
+    <div class="wrap two">
+      <div>
+        <div class="kicker">Questions</div>
+        <h2 style="font-size:38px;margin-bottom:20px">Good to know</h2>
+        <div id="faqList"></div>
+      </div>
+      <div class="contact" id="contact"></div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="ankara t" style="margin-top:-26px;margin-bottom:22px"></div>© <span id="yr"></span> <b>Zainab's Tastee Galour</b> · Nigerian snacks &amp; small chops</footer>
+
+<button class="mbar" id="mbar"><span id="mbarCount">0 items</span><span>View cart →</span></button>
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" aria-label="Your cart" aria-hidden="true">
+  <div class="d-head"><h2 id="dTitle">Your cart</h2><button class="x" id="closeCart" aria-label="Close">×</button></div>
+  <div class="d-body" id="dBody"></div>
+  <div class="d-foot" id="dFoot"></div>
+</aside>
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   STORE SETTINGS — edit these to match your business
+   ========================================================= */
+const STORE = {
+  name: "Zainab's Tastee Galour",
+  currency: "BHD",
+  decimals: 3,
+  whatsapp: "97300000000",          // ← your WhatsApp number: country code + number, no + or spaces
+  phoneDisplay: "+973 0000 0000",   // ← how your number should appear on the site
+  instagram: "",                    // ← e.g. "zainabstasteegalour" (leave empty to hide)
+  area: "Your area, City",          // ← your pickup address / area
+  deliveryFee: 1.000,
+  freeDeliveryFrom: 10.000,
+  minOrder: 3.000,
+  deliveryAreas: ["Manama", "Muharraq", "Riffa", "Isa Town", "Hamad Town", "Other (we'll confirm)"],
+  payment: ["Cash on delivery", "BenefitPay on delivery", "Card on pickup"],
+  hours: [["Sat – Thu","3:00 pm – 10:00 pm"],["Friday","4:00 pm – 11:00 pm"]],
+  deliveryTime: "45–60 min",
+  // Paste your Google Apps Script web-app URL here to send email confirmations
+  // from your Gmail (see the setup guide). Leave "" to turn email off.
+  orderEmailEndpoint: ""
+};
+
+/* MENU — sample items & prices: replace with your own.
+   Photos: set img:"photos/your-file.jpg" on an item to show a real photo.
+   featured:true shows it in the hero card. soldOut:true greys it out. */
+const MENU = [
+  {id:"puff-puff", cat:"Small chops", name:"Puff-Puff (12 pcs)", desc:"Soft, golden, lightly sweet fried dough balls. A Naija classic.", price:1.000, art:"puff", badge:"Bestseller", featured:true},
+  {id:"spring-rolls", cat:"Small chops", name:"Spring Rolls (6 pcs)", desc:"Crispy rolls filled with seasoned vegetables.", price:1.500, art:"roll"},
+  {id:"samosa", cat:"Small chops", name:"Samosa (6 pcs)", desc:"Crunchy pastry with spiced minced meat filling.", price:1.500, art:"samosa"},
+  {id:"gizzard", cat:"Small chops", name:"Peppered Gizzard", desc:"Fried gizzard tossed in spicy pepper sauce.", price:2.000, art:"bowl"},
+  {id:"meat-pie", cat:"Pastries", name:"Nigerian Meat Pie", desc:"Flaky buttery crust with minced beef, potato and carrot.", price:0.700, art:"pie", badge:"Customer favourite", featured:true},
+  {id:"sausage-roll", cat:"Pastries", name:"Sausage Roll", desc:"Golden puff pastry wrapped around seasoned sausage.", price:0.600, art:"roll"},
+  {id:"scotch-egg", cat:"Pastries", name:"Scotch Egg", desc:"Boiled egg in seasoned sausage meat, crumbed and fried.", price:0.800, art:"egg"},
+  {id:"fish-roll", cat:"Pastries", name:"Fish Roll", desc:"Crispy pastry roll with spiced fish filling.", price:0.600, art:"roll"},
+  {id:"beef-suya", cat:"Suya & grills", name:"Beef Suya", desc:"Thin-sliced beef with yaji spice, onions and tomatoes.", price:2.500, art:"suya", badge:"Spicy", featured:true},
+  {id:"chicken-suya", cat:"Suya & grills", name:"Chicken Suya", desc:"Grilled chicken in yaji spice with fresh onions.", price:2.300, art:"suya"},
+  {id:"chin-chin", cat:"Crunchy snacks", name:"Chin Chin (Jar)", desc:"Crunchy, sweet fried dough bites. Perfect for sharing.", price:1.500, art:"jar"},
+  {id:"plantain-chips", cat:"Crunchy snacks", name:"Plantain Chips", desc:"Thin, crispy plantain chips, lightly salted.", price:0.800, art:"chips"},
+  {id:"coconut-candy", cat:"Crunchy snacks", name:"Coconut Candy", desc:"Chewy caramelised coconut treats.", price:0.700, art:"bowl"},
+  {id:"zobo", cat:"Drinks", name:"Zobo (500 ml)", desc:"Chilled hibiscus drink with ginger and pineapple.", price:0.700, art:"zobo"},
+  {id:"chapman", cat:"Drinks", name:"Chapman", desc:"Nigeria's favourite fruity mocktail, served chilled.", price:1.000, art:"chapman"},
+  {id:"kunu", cat:"Drinks", name:"Kunu (500 ml)", desc:"Smooth millet drink with ginger and spices.", price:0.700, art:"kunu"},
+  {id:"small-chops-tray", cat:"Party trays", name:"Small Chops Tray (10 people)", desc:"Puff-puff, samosa, spring rolls, gizzard and suya on one tray.", price:9.500, art:"tray", badge:"For events"},
+  {id:"pastry-box", cat:"Party trays", name:"Pastry Box (20 pcs)", desc:"A mix of meat pies, sausage rolls and fish rolls.", price:11.000, art:"tray"}
+];
+
+const FAQ = [
+  ["How do I pay?", "You pay when you receive your order: " + STORE.payment.join(", ").toLowerCase() + "."],
+  ["How long does delivery take?", "Usually " + STORE.deliveryTime + ". We'll confirm the exact time when we reply to your order."],
+  ["Is there a minimum order?", "Delivery orders start from " + money(STORE.minOrder) + ". Pickup has no minimum."],
+  ["Do you cater for parties and events?", "Yes. Order a party tray here, or message us with your date, number of guests and what you'd like, and we'll prepare a quote."],
+  ["Something's wrong with my order?", "Message us on WhatsApp right away and we'll make it right."]
+];
+
+/* =========================================================
+   Food illustrations (shown until a real photo is added)
+   ========================================================= */
+const PAL = {puff:["#123A5A","#E9B24A"],roll:["#0F2F4A","#E8B45C"],samosa:["#123A5A","#D9A04A"],bowl:["#0F2F4A","#C4512B"],pie:["#123A5A","#E6B565"],egg:["#0F2F4A","#C98B3C"],suya:["#0F2F4A","#9C4A22"],jar:["#123A5A","#E0A526"],chips:["#0F2F4A","#F0C75A"],zobo:["#123A5A","#8E1B3A"],chapman:["#0F2F4A","#D8432F"],kunu:["#123A5A","#E8D6B0"],tray:["#0F2F4A","#E0A526"]};
+function art(kind, id){
+  const [bg,f] = PAL[kind] || PAL.bowl, p = "p"+id;
+  const pat = `<defs><pattern id="${p}" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M20 2 L38 20 L20 38 L2 20Z" fill="none" stroke="#fff" stroke-opacity=".08" stroke-width="2"/><circle cx="20" cy="20" r="4" fill="#fff" fill-opacity=".06"/></pattern><radialGradient id="g${id}" cx=".4" cy=".35"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs>`;
+  const plate = `<ellipse cx="200" cy="168" rx="150" ry="58" fill="#000" fill-opacity=".18"/><ellipse cx="200" cy="160" rx="150" ry="58" fill="#E6EEF6"/><ellipse cx="200" cy="160" rx="118" ry="44" fill="none" stroke="#6FB3E6" stroke-width="3" stroke-dasharray="2 8"/>`;
+  const d = f, dk = "#00000033";
+  let food = "";
+  switch(kind){
+    case "puff": food = [[150,140],[200,128],[250,140],[175,165],[225,165],[200,150]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="30" fill="${d}"/><circle cx="${x}" cy="${y}" r="30" fill="url(#g${id})"/><circle cx="${x-8}" cy="${y-6}" r="2" fill="#fff" fill-opacity=".6"/><circle cx="${x+9}" cy="${y+4}" r="1.6" fill="#fff" fill-opacity=".5"/>`).join(""); break;
+    case "roll": food = [0,1,2].map(i=>`<rect x="${110+i*12}" y="${118+i*18}" width="170" height="34" rx="17" fill="${d}" transform="rotate(-8 200 150)"/><rect x="${110+i*12}" y="${118+i*18}" width="170" height="12" rx="6" fill="#fff" fill-opacity=".25" transform="rotate(-8 200 150)"/>`).join(""); break;
+    case "samosa": food = [[140,170],[200,150],[260,170]].map(([x,y])=>`<path d="M${x-42} ${y+12} L${x} ${y-50} L${x+42} ${y+12}Z" fill="${d}" stroke="#00000022" stroke-width="3" stroke-linejoin="round"/><path d="M${x-20} ${y-12} L${x} ${y-40}" stroke="#fff" stroke-opacity=".35" stroke-width="4" stroke-linecap="round"/>`).join(""); break;
+    case "pie": food = `<path d="M110 168 A90 90 0 0 1 290 168 Z" fill="${d}"/><path d="M110 168 A90 90 0 0 1 290 168" fill="none" stroke="#B9752E" stroke-width="12" stroke-dasharray="10 8"/><path d="M150 120 A60 60 0 0 1 220 100" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="6" stroke-linecap="round"/><circle cx="200" cy="140" r="4" fill="#00000030"/><circle cx="180" cy="148" r="4" fill="#00000030"/><circle cx="220" cy="148" r="4" fill="#00000030"/>`; break;
+    case "egg": food = [[155,150],[245,150]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="46" fill="${d}"/><circle cx="${x}" cy="${y}" r="46" fill="url(#g${id})"/><ellipse cx="${x}" cy="${y}" rx="28" ry="26" fill="#FFF8E6"/><circle cx="${x}" cy="${y}" r="14" fill="#F2B321"/>`).join(""); break;
+    case "suya": food = [0,1,2].map(i=>`<line x1="${100}" y1="${120+i*22}" x2="${310}" y2="${106+i*22}" stroke="#C9A77A" stroke-width="4"/>${[0,1,2,3,4].map(j=>`<rect x="${125+j*34}" y="${106+i*22-j*1.3}" width="28" height="22" rx="6" fill="${j%2?d:"#7A3A1A"}"/>`).join("")}`).join("")+`<circle cx="130" cy="190" r="9" fill="none" stroke="#E7D9F0" stroke-width="5"/><circle cx="270" cy="192" r="9" fill="none" stroke="#E7D9F0" stroke-width="5"/><circle cx="160" cy="195" r="7" fill="#D8432F"/><circle cx="245" cy="196" r="7" fill="#D8432F"/>`; break;
+    case "jar": food = `<rect x="150" y="60" width="100" height="22" rx="6" fill="#0B5D3B"/><rect x="138" y="80" width="124" height="110" rx="20" fill="#fff" fill-opacity=".55" stroke="#fff" stroke-width="3"/>${Array.from({length:22},(_,k)=>`<rect x="${150+(k*37)%96}" y="${100+Math.floor(k/5)*18}" width="14" height="12" rx="3" fill="${d}" transform="rotate(${k*23} ${157+(k*37)%96} ${106+Math.floor(k/5)*18})"/>`).join("")}`; break;
+    case "chips": food = Array.from({length:9},(_,k)=>`<ellipse cx="${140+(k%3)*60+(k>5?10:0)}" cy="${125+Math.floor(k/3)*22}" rx="34" ry="22" fill="${d}" stroke="#C99530" stroke-width="2" transform="rotate(${k*35-60} ${140+(k%3)*60} ${125+Math.floor(k/3)*22})"/>`).join(""); break;
+    case "zobo": case "chapman": case "kunu": food = `<path d="M160 50 L240 50 L230 190 L170 190Z" fill="#fff" fill-opacity=".35" stroke="#fff" stroke-width="3"/><path d="M164 80 L236 80 L230 186 L170 186Z" fill="${d}"/>${kind!=="kunu"?`<rect x="180" y="100" width="14" height="14" rx="3" fill="#fff" fill-opacity=".5" transform="rotate(20 187 107)"/><rect x="204" y="120" width="14" height="14" rx="3" fill="#fff" fill-opacity=".5" transform="rotate(-15 211 127)"/>`:""}${kind==="chapman"?`<circle cx="240" cy="62" r="20" fill="#F2B321" stroke="#fff" stroke-width="3"/><path d="M240 46 V78 M224 62 H256" stroke="#fff" stroke-width="2"/>`:""}${kind==="zobo"?`<path d="M232 40 q20 -10 26 6 q-14 8 -26 -6Z" fill="#2E8B57"/>`:""}<line x1="214" y1="30" x2="200" y2="170" stroke="#E0A526" stroke-width="6" stroke-linecap="round"/>`; break;
+    case "tray": food = `<rect x="70" y="100" width="260" height="110" rx="18" fill="#3B2416"/><rect x="80" y="108" width="240" height="94" rx="12" fill="#E6EEF6"/>${[[115,140],[145,140],[130,170]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="16" fill="#E9B24A"/>`).join("")}<path d="M175 185 L200 130 L225 185Z" fill="#D9A04A"/><rect x="240" y="125" width="70" height="20" rx="10" fill="#C4512B"/><rect x="240" y="155" width="70" height="20" rx="10" fill="#E8B45C"/>`; return `<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img">${pat}<rect width="400" height="300" fill="${bg}"/><rect width="400" height="300" fill="url(#${p})"/>${food}</svg>`;
+    default: food = `<ellipse cx="200" cy="150" rx="80" ry="34" fill="${d}"/>${Array.from({length:12},(_,k)=>`<circle cx="${150+(k*29)%100}" cy="${135+(k%3)*12}" r="9" fill="#00000025"/>`).join("")}`;
+  }
+  return `<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img">${pat}<rect width="400" height="300" fill="${bg}"/><rect width="400" height="300" fill="url(#${p})"/><g transform="translate(0,40)">${plate}<g transform="translate(0,-10)">${food}</g></g></svg>`;
+}
+function pic(m){ return m.img ? `<img src="${m.img}" alt="${m.name}" loading="lazy">` : art(m.art, m.id); }
+
+/* =========================================================
+   App logic
+   ========================================================= */
+function money(n){ return STORE.currency + " " + Number(n).toFixed(STORE.decimals); }
+const $ = s => document.querySelector(s);
+const cart = loadCart();
+let activeCat = "All", query = "", view = "cart", lastOrderText = "";
+
+function loadCart(){ try{ return JSON.parse(localStorage.getItem("ztg-cart")) || {}; }catch(e){ return {}; } }
+function saveCart(){ try{ localStorage.setItem("ztg-cart", JSON.stringify(cart)); }catch(e){} }
+function itemById(id){ return MENU.find(m => m.id === id); }
+function cartLines(){ return Object.entries(cart).filter(([id,q]) => q>0 && itemById(id)).map(([id,q]) => ({...itemById(id), qty:q})); }
+function subtotal(){ return cartLines().reduce((s,l) => s + l.price*l.qty, 0); }
+function itemCount(){ return cartLines().reduce((s,l) => s + l.qty, 0); }
+function deliveryFee(sub, mode){
+  if(mode !== "delivery") return 0;
+  if(STORE.freeDeliveryFrom && sub >= STORE.freeDeliveryFrom) return 0;
+  return STORE.deliveryFee;
+}
+function setQty(id, q){
+  cart[id] = Math.max(0, Math.min(50, q));
+  if(!cart[id]) delete cart[id];
+  saveCart(); renderMenu(); renderCartBits();
+  if($("#drawer").classList.contains("on") && view === "cart") renderCart();
+}
+function toast(msg){
+  const t = $("#toast"); t.textContent = msg; t.classList.add("on");
+  clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove("on"), 1600);
+}
+
+function renderStatic(){
+  $("#featured").innerHTML = MENU.filter(m => m.featured).map(m => `
+    <div class="feat"><div class="ph">${pic({...m,id:"f"+m.id})}</div><div><b>${m.name}</b><small>${m.cat}</small></div><span class="pr">${money(m.price)}</span></div>`).join("") +
+    `<a href="#menu" class="btn btn-main full" style="margin-top:16px">Browse the full menu</a>`;
+  $("#storyArt").innerHTML = art("tray","story");
+  $("#infoStrip").innerHTML = `
+    <div><b>${STORE.deliveryTime}</b>Typical delivery time</div>
+    <div><b>${money(STORE.deliveryFee)}</b>Delivery${STORE.freeDeliveryFrom ? ` · free over ${money(STORE.freeDeliveryFrom)}` : ""}</div>
+    <div><b>${money(STORE.minOrder)}</b>Minimum for delivery</div>
+    <div><b>${STORE.hours[0][1]}</b>${STORE.hours[0][0]}</div>`;
+  $("#faqList").innerHTML = FAQ.map(([q,a]) => `<details><summary>${q}</summary><p>${a}</p></details>`).join("");
+  $("#contact").innerHTML = `
+    <h3>Get in touch</h3>
+    <div class="line">WhatsApp: <a href="https://wa.me/${STORE.whatsapp}" target="_blank" rel="noopener">${STORE.phoneDisplay}</a></div>
+    <div class="line">Call: ${STORE.phoneDisplay}</div>
+    ${STORE.instagram ? `<div class="line">Instagram: <a href="https://instagram.com/${STORE.instagram}" target="_blank" rel="noopener">@${STORE.instagram}</a></div>` : ""}
+    <div class="line">Pickup: ${STORE.area}</div>
+    <table class="hours">${STORE.hours.map(([d,h]) => `<tr><td>${d}</td><td>${h}</td></tr>`).join("")}</table>
+    <div class="ankara"></div>`;
+  $("#yr").textContent = new Date().getFullYear();
+}
+
+function renderChips(){
+  const cats = ["All", ...new Set(MENU.map(m => m.cat))];
+  $("#chips").innerHTML = cats.map(c => `<button class="chip ${c===activeCat?"on":""}" data-cat="${c}">${c}</button>`).join("");
+}
+function renderMenu(){
+  const q = query.trim().toLowerCase();
+  const list = MENU.filter(m => (activeCat==="All" || m.cat===activeCat) && (!q || (m.name+" "+m.desc+" "+m.cat).toLowerCase().includes(q)));
+  $("#grid").innerHTML = list.length ? list.map(m => {
+    const qty = cart[m.id] || 0;
+    const ctrl = m.soldOut ? `<span class="small"><b>Sold out</b></span>`
+      : qty ? `<div class="stepper"><button data-dec="${m.id}" aria-label="Remove one">−</button><span>${qty}</span><button data-inc="${m.id}" aria-label="Add one">+</button></div>`
+      : `<button class="add" data-inc="${m.id}">Add +</button>`;
+    return `<article class="item ${m.soldOut?"soldout":""}">
+      <div class="pic">${m.badge?`<span class="badge">${m.badge}</span>`:""}${pic(m)}</div>
+      <div class="body"><h3>${m.name}</h3><p>${m.desc}</p>
+        <div class="row"><span class="price">${money(m.price)}</span>${ctrl}</div></div>
+    </article>`;
+  }).join("") : `<div class="empty">Nothing matches “${esc(query)}”. Try another word.</div>`;
+}
+function renderCartBits(){
+  const n = itemCount();
+  $("#cartCount").textContent = n;
+  $("#mbarCount").textContent = n + (n===1?" item":" items") + " · " + money(subtotal());
+  $("#mbar").classList.toggle("show", n>0);
+}
+
+function openDrawer(v){ view = v || "cart"; renderDrawer(); $("#drawer").classList.add("on"); $("#overlay").classList.add("on"); $("#drawer").setAttribute("aria-hidden","false"); }
+function closeDrawer(){ $("#drawer").classList.remove("on"); $("#overlay").classList.remove("on"); $("#drawer").setAttribute("aria-hidden","true"); }
+function renderDrawer(){ if(view==="cart") renderCart(); else if(view==="checkout") renderCheckout(); else if(view==="confirm") renderConfirm(); else renderDone(); }
+
+function renderCart(){
+  $("#dTitle").textContent = "Your cart";
+  const lines = cartLines();
+  if(!lines.length){
+    $("#dBody").innerHTML = `<div class="empty"><p><b>Your cart is empty</b><br>Add some snacks from the menu.</p></div>`;
+    $("#dFoot").innerHTML = `<button class="btn btn-main full" id="browse">Browse the menu</button>`;
+    $("#browse").onclick = () => { closeDrawer(); location.hash = "menu"; };
+    return;
+  }
+  $("#dBody").innerHTML = lines.map(l => `
+    <div class="line-item">
+      <div class="ph">${pic({...l,id:"c"+l.id})}</div>
+      <div class="nm">${l.name}<small>${money(l.price)} each</small></div>
+      <div class="stepper"><button data-dec="${l.id}">−</button><span>${l.qty}</span><button data-inc="${l.id}">+</button></div>
+    </div>`).join("") + `<button class="btn btn-ghost" id="clear" style="padding:8px 14px;font-size:14px">Clear cart</button>`;
+  const sub = subtotal();
+  const left = STORE.freeDeliveryFrom ? STORE.freeDeliveryFrom - sub : 0;
+  $("#dFoot").innerHTML = `
+    <div class="sum total"><span>Subtotal</span><span>${money(sub)}</span></div>
+    ${left > 0 ? `<p class="note">Add ${money(left)} more for free delivery</p>` : (STORE.freeDeliveryFrom ? `<p class="note" style="color:var(--green)">You've got free delivery</p>` : "")}
+    <button class="btn btn-main full" id="toCheckout">Checkout →</button>`;
+  $("#clear").onclick = () => { for(const k in cart) delete cart[k]; saveCart(); renderMenu(); renderCartBits(); renderCart(); };
+  $("#toCheckout").onclick = () => { view = "checkout"; renderDrawer(); };
+}
+
+let form = (() => { try{ return JSON.parse(localStorage.getItem("ztg-details")) || {}; }catch(e){ return {}; } })();
+form.mode = form.mode || "delivery";
+
+function renderCheckout(){
+  $("#dTitle").textContent = "Checkout";
+  const opt = (arr, sel) => arr.map(a => `<option ${a===sel?"selected":""}>${a}</option>`).join("");
+  $("#dBody").innerHTML = `
+  <form id="co" novalidate onsubmit="return false">
+    <div class="f"><label>How would you like it?</label>
+      <div class="toggle">
+        <label><input type="radio" name="mode" value="delivery" ${form.mode==="delivery"?"checked":""}><span>Delivery</span></label>
+        <label><input type="radio" name="mode" value="pickup" ${form.mode==="pickup"?"checked":""}><span>Pickup</span></label>
+      </div></div>
+    <div class="f" data-f="name"><label for="name">Your name</label><input type="text" id="name" autocomplete="name" value="${esc(form.name)}"><div class="err">Please enter your name.</div></div>
+    <div class="f" data-f="phone"><label for="phone">Phone number</label><input type="tel" id="phone" autocomplete="tel" placeholder="e.g. 3XXX XXXX" value="${esc(form.phone)}"><div class="err">Please enter a valid phone number.</div></div>
+    <div class="f" data-f="email"><label for="email">Email</label><input type="email" id="email" autocomplete="email" placeholder="you@example.com" value="${esc(form.email)}"><div class="small" style="margin-top:4px">We'll send your order confirmation here.</div><div class="err">Please enter a valid email address.</div></div>
+    <div id="delFields" style="${form.mode==="delivery"?"":"display:none"}">
+      <div id="locBox">${locHtml()}</div>
+      <div id="geoExtra" style="${geoState==="found"?"":"display:none"}">
+        <div class="f" data-f="house"><label for="house">House / flat number</label><input type="text" id="house" placeholder="e.g. House 45, or Flat 12, Building 2280" value="${esc(form.house)}"><div class="small" style="margin-top:4px">Your location gets us to your street. This helps the driver find your door.</div><div class="err">Please add your house or flat number.</div></div>
+        <div class="f"><label for="directions">Additional instructions <span style="font-weight:400;color:var(--muted)">(optional)</span></label><textarea id="directions" rows="2" placeholder="e.g. Blue gate next to the pharmacy, call when outside">${esc(form.directions)}</textarea></div>
+      </div>
+      <div class="f" data-f="areaSel"><label for="areaSel">Area</label><select id="areaSel"><option value="">Choose your area</option>${opt(STORE.deliveryAreas, form.areaSel)}</select><div class="err">Please choose your area.</div></div>
+      <div class="f" data-f="address"><label for="address">Address</label><textarea id="address" rows="2" placeholder="Building / house, road, block, flat">${esc(form.address)}</textarea><div class="err">Please enter your address.</div></div>
+    </div>
+    <div id="pickNote" class="small" style="margin:-4px 0 14px;${form.mode==="pickup"?"":"display:none"}">Pick up from: <b>${STORE.area}</b></div>
+    <div class="f"><label for="when">When?</label><select id="when">${opt(["As soon as possible","In 1–2 hours","Later today (add time in notes)","Tomorrow (add time in notes)"], form.when)}</select></div>
+    <div class="f"><label for="pay">Payment</label><select id="pay">${opt(STORE.payment, form.pay)}</select></div>
+    <div class="f"><label for="notes">Notes (optional)</label><textarea id="notes" rows="2" placeholder="Spice level, allergies, event date…">${esc(form.notes)}</textarea></div>
+  </form>`;
+  updateTotals();
+  $("#co").addEventListener("change", e => {
+    if(e.target.name === "mode"){
+      form.mode = e.target.value;
+      $("#delFields").style.display = form.mode==="delivery" ? "" : "none";
+      $("#pickNote").style.display = form.mode==="pickup" ? "" : "none";
+      updateTotals();
+    }
+  });
+  $("#co").addEventListener("input", e => { const f = e.target.closest(".f"); if(f) f.classList.remove("bad"); if(e.target.id==="address" && geoState==="found") { geoEdited = true; } });
+}
+function updateTotals(){
+  const sub = subtotal(), fee = deliveryFee(sub, form.mode), below = form.mode==="delivery" && sub < STORE.minOrder;
+  $("#dFoot").innerHTML = `
+    <div class="sum"><span>Subtotal (${itemCount()} items)</span><span>${money(sub)}</span></div>
+    <div class="sum"><span>Delivery</span><span>${form.mode==="pickup" ? "—" : fee ? money(fee) : "Free"}</span></div>
+    <div class="sum total"><span>Total</span><span>${money(sub+fee)}</span></div>
+    ${below ? `<p class="note">Delivery orders start from ${money(STORE.minOrder)}. Add ${money(STORE.minOrder-sub)} more, or choose pickup.</p>` : ""}
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-ghost" id="back" style="flex:0 0 auto;margin-top:12px">← Cart</button>
+      <button class="btn btn-main full" style="flex:1" id="place" ${below?"disabled":""}>Review order →</button>
+    </div>`;
+  $("#back").onclick = () => { readForm(); view = "cart"; renderDrawer(); };
+  $("#place").onclick = placeOrder;
+}
+function esc(s){ return (s||"").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function readForm(){
+  if(!$("#co")) return;
+  ["name","phone","email","areaSel","address","house","directions","when","pay","notes"].forEach(k => { const el = $("#"+k); if(el) form[k] = el.value.trim(); });
+  try{ localStorage.setItem("ztg-details", JSON.stringify({...form, notes:"", geo:null, directions:""})); }catch(e){}
+}
+/* ---------- Location ---------- */
+let geoState = form.geo ? "found" : "ask", geoMsg = "", geoEdited = false;
+function mapUrl(g){ return g ? `https://www.google.com/maps?q=${g.lat.toFixed(6)},${g.lng.toFixed(6)}` : ""; }
+function locHtml(){
+  if(geoState==="busy") return `<div class="loc"><span class="spin"></span>Finding your location… If your browser asks, tap <b style="display:inline">Allow</b>.</div>`;
+  if(geoState==="found") return `<div class="loc ok"><b>📍 Location found</b><p>${esc(form.geo.label || "Your current location")}<br><a href="${mapUrl(form.geo)}" target="_blank" rel="noopener">Check it on the map</a> · Not right? Edit the address below.</p><div class="acts"><button type="button" class="btn btn-ghost" data-loc="ask">Find me again</button><button type="button" class="btn btn-ghost" data-loc="clear">Remove pin</button></div></div>`;
+  if(geoState==="error") return `<div class="loc warn"><b>We couldn't get your location</b><p>${esc(geoMsg)} No problem: just type your area and address below.</p><div class="acts"><button type="button" class="btn btn-ghost" data-loc="ask">Try again</button></div></div>`;
+  if(geoState==="skip") return `<p class="small" style="margin:0 0 14px">Rather not type it? <a href="#" data-loc="ask">Use my current location</a></p>`;
+  return `<div class="loc"><b>📍 Fill in your address automatically?</b><p>We need your location only to know where to deliver your order. Your browser will ask for permission, and you can change the address afterwards.</p><div class="acts"><button type="button" class="btn btn-main" data-loc="ask">Use my location</button><button type="button" class="btn btn-ghost" data-loc="skip">I'll type it</button></div></div>`;
+}
+function setLoc(state, msg){
+  geoState = state; geoMsg = msg || "";
+  const b = $("#locBox"); if(b) b.innerHTML = locHtml();
+  const x = $("#geoExtra");
+  if(x){ x.style.display = state==="found" ? "" : "none"; if(state==="found" && !$("#house").value.trim()) setTimeout(() => $("#house").focus(), 50); }
+}
+function useLocation(){
+  readForm();
+  if(!("geolocation" in navigator)){ setLoc("error","This browser can't share location."); return; }
+  setLoc("busy");
+  try{
+    navigator.geolocation.getCurrentPosition(onPos, err => {
+      setLoc("error", err && err.code===1 ? "Location permission wasn't given." : "Your location isn't available right now.");
+    }, {enableHighAccuracy:true, timeout:15000, maximumAge:60000});
+  }catch(e){ setLoc("error","Location isn't available here."); }
+}
+async function onPos(pos){
+  const g = {lat:pos.coords.latitude, lng:pos.coords.longitude, acc:Math.round(pos.coords.accuracy||0), label:""};
+  let a = null;
+  try{
+    const ctrl = new AbortController(); setTimeout(() => ctrl.abort(), 7000);
+    const r = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&addressdetails=1&zoom=18&lat=${g.lat}&lon=${g.lng}`, {signal:ctrl.signal, headers:{"Accept-Language":"en"}});
+    a = await r.json();
+  }catch(e){}
+  const addrEl = $("#address"), areaEl = $("#areaSel");
+  if(a && a.address){
+    const d = a.address;
+    g.label = a.display_name;
+    const street = [d.house_number && ("House " + d.house_number), d.road, d.neighbourhood || d.quarter, d.suburb || d.city_district || d.town || d.city || d.village].filter(Boolean).join(", ");
+    if(addrEl) addrEl.value = street || a.display_name;
+    if(d.house_number && $("#house") && !$("#house").value.trim()) $("#house").value = "House " + d.house_number;
+    const blob = (a.display_name || "").toLowerCase();
+    const match = STORE.deliveryAreas.find(x => blob.includes(x.toLowerCase().split(" (")[0])) || STORE.deliveryAreas[STORE.deliveryAreas.length-1];
+    if(areaEl) areaEl.value = match;
+  }else{
+    g.label = `Pinned at ${g.lat.toFixed(5)}, ${g.lng.toFixed(5)}`;
+    if(addrEl && !addrEl.value.trim()) addrEl.value = "";
+    if(addrEl) addrEl.placeholder = "Add building / flat number so the driver finds you";
+  }
+  form.geo = g; geoEdited = false;
+  document.querySelectorAll("#co .f").forEach(f => f.classList.remove("bad"));
+  setLoc("found");
+}
+
+/* ---------- Review & confirm ---------- */
+let lastOrder = null;
+function placeOrder(){
+  readForm();
+  const bad = [];
+  if(!form.name) bad.push("name");
+  if((form.phone||"").replace(/\D/g,"").length < 7) bad.push("phone");
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(form.email||"")) bad.push("email");
+  if(form.mode==="delivery"){ if(!form.areaSel) bad.push("areaSel"); if(!form.address && !form.geo) bad.push("address"); if(form.geo && !form.house) bad.push("house"); }
+  document.querySelectorAll("#co .f").forEach(f => f.classList.toggle("bad", bad.includes(f.dataset.f)));
+  if(bad.length){ document.querySelector("#co .f.bad").scrollIntoView({behavior:"smooth",block:"center"}); return; }
+  view = "confirm"; renderDrawer(); $("#dBody").scrollTop = 0;
+}
+function renderConfirm(){
+  $("#dTitle").textContent = "Confirm your order";
+  const sub = subtotal(), fee = deliveryFee(sub, form.mode), del = form.mode==="delivery";
+  $("#dBody").innerHTML = `
+    <div class="review">
+      <h4>${del ? "🛵 Your order will be delivered to" : "🏪 You'll pick up from"}</h4>
+      ${del ? `<div class="addr"><b>${esc(form.areaSel)}</b><br>${esc(form.address || "")}${form.geo && form.house ? `<br>${esc(form.house)}` : ""}${form.geo && form.directions ? `<br><span class="small">Driver instructions: ${esc(form.directions)}</span>` : ""}${form.geo ? `<br><a href="${mapUrl(form.geo)}" target="_blank" rel="noopener">📍 See the pin on the map</a>` : ""}</div>`
+            : `<div class="addr"><b>${esc(STORE.area)}</b></div>`}
+      <button type="button" class="btn btn-ghost" id="chg" style="padding:8px 14px;font-size:14px;margin-top:10px">${del ? "Change address" : "Change to delivery"}</button>
+    </div>
+    <div class="review">
+      <h4>Your items</h4>
+      ${cartLines().map(l => `<div class="r"><span>${l.qty} × ${esc(l.name)}</span><span>${money(l.price*l.qty)}</span></div>`).join("")}
+    </div>
+    <div class="review">
+      <h4>Your details</h4>
+      <div class="r"><span>Name</span><span>${esc(form.name)}</span></div>
+      <div class="r"><span>Phone</span><span>${esc(form.phone)}</span></div>
+      <div class="r"><span>Email</span><span>${esc(form.email)}</span></div>
+      <div class="r"><span>When</span><span>${esc(form.when)}</span></div>
+      <div class="r"><span>Payment</span><span>${esc(form.pay)}</span></div>
+      ${form.notes ? `<div class="r"><span>Notes</span><span>${esc(form.notes)}</span></div>` : ""}
+    </div>`;
+  $("#dFoot").innerHTML = `
+    <div class="sum"><span>Subtotal</span><span>${money(sub)}</span></div>
+    ${del ? `<div class="sum"><span>Delivery</span><span>${fee ? money(fee) : "Free"}</span></div>` : ""}
+    <div class="sum total"><span>Total</span><span>${money(sub+fee)}</span></div>
+    <label style="display:flex;gap:10px;align-items:flex-start;font-weight:500;font-size:14px;margin:12px 0 0;color:var(--muted)"><input type="checkbox" id="agree" style="margin-top:3px;width:18px;height:18px">${del ? "Yes, deliver my order to the address above." : "Yes, I'll pick up my order from the address above."}</label>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-ghost" id="back2" style="flex:0 0 auto;margin-top:12px">← Edit</button>
+      <button class="btn btn-main full" style="flex:1" id="confirmBtn" disabled>Confirm order</button>
+    </div>`;
+  $("#agree").onchange = e => { $("#confirmBtn").disabled = !e.target.checked; };
+  $("#back2").onclick = $("#chg").onclick = () => { if(!del) form.mode = "delivery"; view = "checkout"; renderDrawer(); };
+  $("#confirmBtn").onclick = confirmOrder;
+}
+function confirmOrder(){
+  const sub = subtotal(), fee = deliveryFee(sub, form.mode), del = form.mode==="delivery";
+  const ref = "ZT-" + Date.now().toString(36).slice(-5).toUpperCase();
+  const items = cartLines().map(l => ({name:l.name, qty:l.qty, price:l.price, line:+(l.price*l.qty).toFixed(3)}));
+  lastOrder = {store:STORE.name, ref, currency:STORE.currency, name:form.name, phone:form.phone, email:form.email,
+    mode:form.mode, area: del ? form.areaSel : "", address: del ? form.address : STORE.area,
+    map: del && form.geo ? mapUrl(form.geo) : "", house: del && form.geo ? form.house : "", directions: del && form.geo ? (form.directions || "") : "", when:form.when, pay:form.pay, notes:form.notes || "",
+    items, subtotal:+sub.toFixed(3), fee:+fee.toFixed(3), total:+(sub+fee).toFixed(3), placedAt:new Date().toISOString()};
+  lastOrderText =
+`New order ${ref} — ${STORE.name}
+
+${items.map(i => `• ${i.qty} × ${i.name} — ${money(i.line)}`).join("\n")}
+
+Subtotal: ${money(sub)}
+${del ? `Delivery: ${fee ? money(fee) : "Free"}\n` : ""}TOTAL: ${money(sub+fee)}
+
+Name: ${form.name}
+Phone: ${form.phone}
+Email: ${form.email}
+${del ? `Deliver to: ${form.areaSel} — ${form.address}${lastOrder.house ? `\nHouse/flat: ${lastOrder.house}` : ""}${lastOrder.directions ? `\nDriver instructions: ${lastOrder.directions}` : ""}${lastOrder.map ? `\nMap: ${lastOrder.map}` : ""}` : `Pickup`}
+When: ${form.when}
+Payment: ${form.pay}${form.notes ? `\nNotes: ${form.notes}` : ""}`;
+  view = "done"; renderDrawer();
+  sendConfirmation(lastOrder);
+}
+function renderDone(){
+  const emailOn = !!STORE.orderEmailEndpoint;
+  $("#dTitle").textContent = emailOn ? "Placing your order…" : "Almost done!";
+  const wa = `https://wa.me/${STORE.whatsapp}?text=${encodeURIComponent(lastOrderText)}`;
+  $("#dBody").innerHTML = `
+    <div class="done">
+      <h3 id="doneHead">${emailOn ? "Sending your order…" : "Send your order to us"}</h3>
+      <div id="mailStatus" class="mail" style="${emailOn ? "" : "display:none"}"><span class="spin"></span>Sending your order and emailing a confirmation to <b>${esc(lastOrder.email)}</b>…</div>
+      <p class="small" id="waLead">${emailOn ? "You can also send it on WhatsApp for a faster reply." : "Tap the green button to open WhatsApp with your order ready. <b>Your order is only received once you press send in WhatsApp.</b>"}</p>
+      <a class="btn wa full" href="${wa}" target="_blank" rel="noopener">Send order on WhatsApp</a>
+      <div class="order-box" id="orderBox">${esc(lastOrderText)}</div>
+      <p class="small">WhatsApp not opening? Copy the order and send it to <b>${STORE.phoneDisplay}</b>.</p>
+      <button class="btn btn-ghost full" id="copy">Copy order</button>
+    </div>`;
+  $("#dFoot").innerHTML = `<button class="btn btn-ghost full" id="newOrder" style="margin-top:0">Done — start a new order</button>`;
+  $("#copy").onclick = async () => {
+    try{ await navigator.clipboard.writeText(lastOrderText); toast("Order copied ✓"); }
+    catch(e){ const r = document.createRange(); r.selectNodeContents($("#orderBox")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); toast("Selected — press copy"); }
+  };
+  $("#newOrder").onclick = () => { for(const k in cart) delete cart[k]; saveCart(); form.geo = null; geoState = "ask"; renderMenu(); renderCartBits(); closeDrawer(); toast("Thank you — e se!"); };
+}
+async function sendConfirmation(order){
+  if(!STORE.orderEmailEndpoint) return;
+  const box = () => $("#mailStatus");
+  try{
+    const ctrl = new AbortController(); setTimeout(() => ctrl.abort(), 20000);
+    const r = await fetch(STORE.orderEmailEndpoint, {method:"POST", headers:{"Content-Type":"text/plain;charset=utf-8"}, body:JSON.stringify(order), signal:ctrl.signal});
+    const j = await r.json();
+    if(!j.ok) throw new Error(j.error || "failed");
+    if(!box()) return;
+    $("#dTitle").textContent = "Order received";
+    $("#doneHead").textContent = "Thank you, " + order.name.split(" ")[0] + "! 🎉";
+    box().className = "mail ok";
+    box().innerHTML = `✓ We've received order <b>${esc(order.ref)}</b>. A confirmation has been sent to <b>${esc(order.email)}</b> (check your spam folder if you don't see it).`;
+  }catch(e){
+    if(!box()) return;
+    $("#dTitle").textContent = "Almost done!";
+    $("#doneHead").textContent = "Please send your order on WhatsApp";
+    box().innerHTML = `We couldn't send your confirmation email just now. <b>Please send your order on WhatsApp below</b> so we receive it.`;
+    $("#waLead").innerHTML = "<b>Your order is only received once you press send in WhatsApp.</b>";
+  }
+}
+
+document.addEventListener("click", e => {
+  const inc = e.target.closest("[data-inc]"), dec = e.target.closest("[data-dec]"), chip = e.target.closest("[data-cat]"), go = e.target.closest("[data-goto]");
+  if(inc){ const id = inc.dataset.inc; const was = cart[id]||0; setQty(id, was+1); if(!was) toast(itemById(id).name + " added"); }
+  if(dec){ setQty(dec.dataset.dec, (cart[dec.dataset.dec]||0) - 1); }
+  if(chip){ activeCat = chip.dataset.cat; renderChips(); renderMenu(); }
+  if(go){ activeCat = go.dataset.goto; renderChips(); renderMenu(); }
+  const loc = e.target.closest("[data-loc]");
+  if(loc){ e.preventDefault(); const a = loc.dataset.loc;
+    if(a==="ask") useLocation();
+    else if(a==="skip") setLoc("skip");
+    else if(a==="clear"){ form.geo = null; setLoc("skip"); } }
+});
+$("#search").addEventListener("input", e => { query = e.target.value; renderMenu(); });
+$("#openCart").onclick = () => openDrawer("cart");
+$("#mbar").onclick = () => openDrawer("cart");
+$("#closeCart").onclick = closeDrawer;
+$("#overlay").onclick = closeDrawer;
+document.addEventListener("keydown", e => { if(e.key==="Escape") closeDrawer(); });
+
+renderStatic(); renderChips(); renderMenu(); renderCartBits();
+</script>
+</body>
+</html>
